@@ -1,5 +1,6 @@
 {
   "name": "quote-compare",
+  "description": "Compare contractor quotes across renovation trades, track selections, and calculate total costs",
   "private": true,
   "version": "0.1.0",
   "type": "module",
