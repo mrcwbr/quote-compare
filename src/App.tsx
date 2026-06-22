@@ -7,12 +7,11 @@ import TradeForm from './components/TradeForm'
 import OfferForm from './components/OfferForm'
 import Summary from './components/Summary'
 import LanguageSwitcher from './components/LanguageSwitcher'
+import { generateId } from "./utils.ts";
 
-const STORAGE_KEY = 'haus-sanierung-v2'
+const STORAGE_KEY = 'quote-compare-v2'
 
-function generateId(): string {
-  return crypto.randomUUID()
-}
+
 
 function encodeState(trades: Trade[]): string {
   const bytes = new TextEncoder().encode(JSON.stringify(trades))
@@ -51,7 +50,7 @@ function downloadJson(trades: Trade[]) {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'haussanierung-angebote.json'
+  a.download = 'quote-compare-export.json'
   a.click()
   URL.revokeObjectURL(url)
 }
