@@ -11,7 +11,8 @@ const de = {
   },
   emptyState: {
     title: 'Noch keine Gewerke angelegt',
-    description: 'Klicke auf „Gewerk" um z. B. Sanitär, Elektrik oder Malerarbeiten anzulegen.',
+    description:
+      'Klicke auf „Gewerk" um z. B. Sanitär, Elektrik oder Malerarbeiten anzulegen.',
   },
   trade: {
     offerCount_one: '{{count}} Angebot',
@@ -61,6 +62,6 @@ const de = {
     missingSelection_one: '{{count}} Gewerk ohne Auswahl',
     missingSelection_other: '{{count}} Gewerke ohne Auswahl',
   },
-} as const
+} as const;
 
-export default de
+export default de;

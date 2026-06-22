@@ -11,7 +11,8 @@ const en = {
   },
   emptyState: {
     title: 'No trades added yet',
-    description: 'Click on “Trade” to add e. g. Plumbing, Electrical or Painting.',
+    description:
+      'Click on “Trade” to add e. g. Plumbing, Electrical or Painting.',
   },
   trade: {
     offerCount_one: '{{count}} quote',
@@ -61,6 +62,6 @@ const en = {
     missingSelection_one: '{{count}} trade without selection',
     missingSelection_other: '{{count}} trades without selection',
   },
-} as const
+} as const;
 
-export default en
+export default en;
