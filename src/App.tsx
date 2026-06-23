@@ -139,6 +139,17 @@ export default function App() {
     );
   }
 
+  function moveTrade(id: string, direction: -1 | 1) {
+    setTrades((prev) => {
+      const idx = prev.findIndex((t) => t.id === id);
+      const next = idx + direction;
+      if (next < 0 || next >= prev.length) return prev;
+      const arr = [...prev];
+      [arr[idx], arr[next]] = [arr[next], arr[idx]];
+      return arr;
+    });
+  }
+
   function selectOffer(tradeId: string, offerId: string | null) {
     setTrades((prev) =>
       prev.map((trade) =>
@@ -221,10 +232,14 @@ export default function App() {
           </div>
         ) : (
           <div className="space-y-5">
-            {trades.map((trade) => (
+            {trades.map((trade, idx) => (
               <TradeCard
                 key={trade.id}
                 trade={trade}
+                canMoveUp={idx > 0}
+                canMoveDown={idx < trades.length - 1}
+                onMoveUp={() => moveTrade(trade.id, -1)}
+                onMoveDown={() => moveTrade(trade.id, 1)}
                 onEditTrade={() => setModal({ type: 'edit-trade', trade })}
                 onAddOffer={() =>
                   setModal({ type: 'add-offer', tradeId: trade.id })

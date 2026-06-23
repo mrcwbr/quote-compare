@@ -19,6 +19,8 @@ const de = {
     offerCount_other: '{{count}} Angebote',
     selectedBadge: '{{price}} ausgewählt',
     editTooltip: 'Gewerk bearbeiten',
+    moveUpTooltip: 'Nach oben',
+    moveDownTooltip: 'Nach unten',
     cheapest: 'günstigst',
     noOffers: 'Noch keine Angebote hinterlegt.',
     addOffer: 'Angebot hinzufügen',

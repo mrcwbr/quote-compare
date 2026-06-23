@@ -19,6 +19,8 @@ const en = {
     offerCount_other: '{{count}} quotes',
     selectedBadge: '{{price}} selected',
     editTooltip: 'Edit trade',
+    moveUpTooltip: 'Move up',
+    moveDownTooltip: 'Move down',
     cheapest: 'cheapest',
     noOffers: 'No quotes added yet.',
     addOffer: 'Add quote',

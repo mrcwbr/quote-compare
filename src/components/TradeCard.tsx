@@ -1,8 +1,13 @@
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Offer, Trade } from '../types';
 
 interface Props {
   trade: Trade;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
   onEditTrade: () => void;
   onAddOffer: () => void;
   onEditOffer: (offer: Offer) => void;
@@ -25,6 +30,32 @@ function formatDate(dateStr: string, locale: string): string {
   );
 }
 
+function DotsIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="5" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="19" cy="12" r="2" />
+    </svg>
+  );
+}
+
+function ChevronUpIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  );
+}
+
+function ChevronDownIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
 function PencilIcon() {
   return (
     <svg
@@ -44,12 +75,27 @@ function PencilIcon() {
 
 export default function TradeCard({
   trade,
+  canMoveUp,
+  canMoveDown,
+  onMoveUp,
+  onMoveDown,
   onEditTrade,
   onAddOffer,
   onEditOffer,
   onSelectOffer,
 }: Props) {
   const { t, i18n } = useTranslation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (!menuRef.current?.contains(e.target as Node)) setMenuOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [menuOpen]);
   const selected = trade.offers.find((o) => o.id === trade.selectedOfferId);
   const cheapest =
     trade.offers.length > 0
@@ -74,13 +120,40 @@ export default function TradeCard({
             </span>
           )}
         </div>
-        <button
-          onClick={onEditTrade}
-          title={t('trade.editTooltip')}
-          className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700"
-        >
-          <PencilIcon />
-        </button>
+        <div ref={menuRef} className="relative">
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700"
+          >
+            <DotsIcon />
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 z-20 mt-1 min-w-36 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
+              {canMoveUp && (
+                <button
+                  onClick={() => { onMoveUp(); setMenuOpen(false); }}
+                  className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                >
+                  <ChevronUpIcon /> {t('trade.moveUpTooltip')}
+                </button>
+              )}
+              {canMoveDown && (
+                <button
+                  onClick={() => { onMoveDown(); setMenuOpen(false); }}
+                  className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                >
+                  <ChevronDownIcon /> {t('trade.moveDownTooltip')}
+                </button>
+              )}
+              <button
+                onClick={() => { onEditTrade(); setMenuOpen(false); }}
+                className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              >
+                <PencilIcon /> {t('trade.editTooltip')}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {trade.offers.length > 0 ? (
