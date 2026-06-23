@@ -155,11 +155,14 @@ export default function App() {
     <div className="min-h-screen bg-gray-50">
       <header className="sticky top-0 z-10 border-b border-gray-200 bg-white shadow-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 p-4 sm:px-6">
-          <div className="shrink-0">
-            <h1 className="text-xl font-bold text-gray-900">
-              {t('app.title')}
-            </h1>
-            <p className="mt-0.5 text-xs text-gray-400">{t('app.subtitle')}</p>
+          <div className="flex shrink-0 items-center gap-3">
+            <img src={`${import.meta.env.BASE_URL}/favicon.svg`} alt={t('app.title') + ' Logo'} width="36" height="36" />
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">
+                {t('app.title')}
+              </h1>
+              <p className="-mt-1 text-xs text-gray-400">{t('app.subtitle')}</p>
+            </div>
           </div>
           <div className="flex flex-wrap items-center justify-end gap-2">
             <LanguageSwitcher />
@@ -311,6 +314,7 @@ function DownloadIcon() {
     </svg>
   );
 }
+
 
 function CheckIcon() {
   return (
