@@ -5,15 +5,17 @@ interface Props {
   trades: Trade[];
 }
 
-function formatEur(value: number): string {
-  return new Intl.NumberFormat('de-DE', {
+function formatEur(value: number, locale: string): string {
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: 'EUR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(value);
 }
 
 export default function Summary({ trades }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const rows = trades.map((trade) => ({
     trade,
@@ -48,7 +50,7 @@ export default function Summary({ trades }: Props) {
                         {offer.company}
                       </span>
                       <span className="text-gray-600">
-                        {formatEur(offer.price)}
+                        {formatEur(offer.price, i18n.language)}
                       </span>
                     </>
                   ) : (
@@ -66,7 +68,7 @@ export default function Summary({ trades }: Props) {
               {t('summary.grandTotal')}
             </p>
             <p className="text-2xl font-bold text-gray-900 tabular-nums">
-              {formatEur(total)}
+              {formatEur(total, i18n.language)}
             </p>
             {missingCount > 0 && (
               <p className="mt-0.5 text-xs text-amber-600">

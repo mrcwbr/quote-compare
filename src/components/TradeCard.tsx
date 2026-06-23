@@ -9,10 +9,12 @@ interface Props {
   onSelectOffer: (offerId: string | null) => void;
 }
 
-function formatEur(value: number): string {
-  return new Intl.NumberFormat('de-DE', {
+function formatEur(value: number, locale: string): string {
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: 'EUR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(value);
 }
 
@@ -66,7 +68,7 @@ export default function TradeCard({
           </span>
           {selected && (
             <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-              {t('trade.selectedBadge', { price: formatEur(selected.price) })}
+              {t('trade.selectedBadge', { price: formatEur(selected.price, i18n.language) })}
             </span>
           )}
         </div>
@@ -131,16 +133,16 @@ export default function TradeCard({
                       {offer.company}
                     </td>
                     <td className="px-4 py-3 text-right whitespace-nowrap">
-                      <span
-                        className={`font-semibold ${isSelected ? 'text-green-700' : 'text-gray-900'}`}
-                      >
-                        {formatEur(offer.price)}
-                      </span>
                       {isCheapest && (
-                        <span className="ml-1.5 rounded-sm bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700">
+                          <span className="mr-2 rounded-sm bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700">
                           {t('trade.cheapest')}
                         </span>
                       )}
+                      <span
+                        className={`font-semibold ${isSelected ? 'text-green-700' : 'text-gray-900'}`}
+                      >
+                        {formatEur(offer.price, i18n.language)}
+                      </span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-gray-600">
                       {formatDate(offer.date, i18n.language)}
