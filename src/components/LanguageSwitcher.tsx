@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { LANG_KEY } from '../i18n';
 
 const LANGUAGES = [
-  { code: 'de', label: 'DE' },
-  { code: 'en', label: 'EN' },
+  { code: 'de', label: 'DE', flag: '🇩🇪' },
+  { code: 'en', label: 'EN', flag: '🇬🇧' },
 ];
 
 export default function LanguageSwitcher() {
@@ -21,7 +21,7 @@ export default function LanguageSwitcher() {
         <button
           key={lang.code}
           onClick={() => switchTo(lang.code)}
-          className={`px-3 py-1.5 text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${
             idx > 0 ? 'border-l border-gray-300' : ''
           } ${
             current === lang.code
@@ -29,7 +29,8 @@ export default function LanguageSwitcher() {
               : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'
           }`}
         >
-          {lang.label}
+          <span>{lang.flag}</span>
+          <span>{lang.label}</span>
         </button>
       ))}
     </div>
