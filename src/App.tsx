@@ -156,7 +156,12 @@ export default function App() {
       <header className="sticky top-0 z-10 border-b border-gray-200 bg-white shadow-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 p-4 sm:px-6">
           <div className="flex shrink-0 items-center gap-3">
-            <img src={`${import.meta.env.BASE_URL}/favicon.svg`} alt={t('app.title') + ' Logo'} width="36" height="36" />
+            <img
+              src={`${import.meta.env.BASE_URL}/favicon.svg`}
+              alt={`${t('app.title')} Logo`}
+              width="36"
+              height="36"
+            />
             <div>
               <h1 className="text-xl font-bold text-gray-900">
                 {t('app.title')}
@@ -314,7 +319,6 @@ function DownloadIcon() {
     </svg>
   );
 }
-
 
 function CheckIcon() {
   return (
