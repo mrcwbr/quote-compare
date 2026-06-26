@@ -49,6 +49,7 @@ const en = {
     priceLabel: 'Price (€)',
     dateLabel: 'Date',
     linkLabel: 'Link to quote',
+    linkHint: 'OneDrive links (1drv.ms) are shown as an embedded preview.',
     noteLabel: 'Note',
     notePlaceholder: 'Any notes about the quote…',
     deleteOffer: 'Delete quote',

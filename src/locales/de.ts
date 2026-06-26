@@ -49,6 +49,7 @@ const de = {
     priceLabel: 'Preis (€)',
     dateLabel: 'Datum',
     linkLabel: 'Link zum Angebot',
+    linkHint: 'OneDrive-Links (1drv.ms) werden als eingebettete Vorschau angezeigt.',
     noteLabel: 'Notiz',
     notePlaceholder: 'Beliebige Notizen zum Angebot…',
     deleteOffer: 'Angebot löschen',

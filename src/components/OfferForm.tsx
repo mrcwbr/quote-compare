@@ -113,6 +113,7 @@ export default function OfferForm({
             placeholder="https://..."
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
+          <p className="mt-1 text-xs text-gray-400">{t('offerForm.linkHint')}</p>
         </div>
 
         <div>

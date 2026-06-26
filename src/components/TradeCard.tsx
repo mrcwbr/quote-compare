@@ -87,6 +87,16 @@ export default function TradeCard({
   const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!previewUrl) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setPreviewUrl(null);
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [previewUrl]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -224,15 +234,24 @@ export default function TradeCard({
                     </td>
                     <td className="px-4 py-3">
                       {offer.link ? (
-                        <a
-                          href={offer.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
-                        >
-                          {t('table.openLink')}
-                        </a>
+                        offer.link.startsWith('https://1drv.ms') ? (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setPreviewUrl(offer.link); }}
+                            className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            {t('table.openLink')}
+                          </button>
+                        ) : (
+                          <a
+                            href={offer.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            {t('table.openLink')}
+                          </a>
+                        )
                       ) : (
                         <span className="text-gray-300">—</span>
                       )}
@@ -276,6 +295,33 @@ export default function TradeCard({
           {t('trade.addOffer')}
         </button>
       </div>
+
+      {previewUrl && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col bg-black/80"
+          onClick={(e) => { if (e.target === e.currentTarget) setPreviewUrl(null); }}
+        >
+          <div className="flex shrink-0 items-center justify-between bg-gray-900 px-4 py-2">
+            <span className="text-sm font-medium text-gray-200">{trade.name}</span>
+            <button
+              onClick={() => setPreviewUrl(null)}
+              className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
+              aria-label="Close"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <iframe
+            src={previewUrl}
+            className="min-h-0 flex-1 w-full border-0"
+            allow="fullscreen"
+            title="Document preview"
+          />
+        </div>
+      )}
     </div>
   );
 }
