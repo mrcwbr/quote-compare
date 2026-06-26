@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp, ExternalLink, MoreHorizontal, Pencil, ScanEye, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Offer, Trade } from '../types';
@@ -30,48 +31,6 @@ function formatDate(dateStr: string, locale: string): string {
   );
 }
 
-function DotsIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <circle cx="5" cy="12" r="2" />
-      <circle cx="12" cy="12" r="2" />
-      <circle cx="19" cy="12" r="2" />
-    </svg>
-  );
-}
-
-function ChevronUpIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  );
-}
-
-function ChevronDownIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
-  );
-}
-
-function PencilIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-    </svg>
-  );
-}
 
 export default function TradeCard({
   trade,
@@ -135,7 +94,7 @@ export default function TradeCard({
             onClick={() => setMenuOpen((o) => !o)}
             className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700"
           >
-            <DotsIcon />
+            <MoreHorizontal size={14} />
           </button>
           {menuOpen && (
             <div className="absolute right-0 z-20 mt-1 min-w-36 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
@@ -144,7 +103,7 @@ export default function TradeCard({
                   onClick={() => { onMoveUp(); setMenuOpen(false); }}
                   className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
-                  <ChevronUpIcon /> {t('trade.moveUpTooltip')}
+                  <ChevronUp size={14} /> {t('trade.moveUpTooltip')}
                 </button>
               )}
               {canMoveDown && (
@@ -152,14 +111,14 @@ export default function TradeCard({
                   onClick={() => { onMoveDown(); setMenuOpen(false); }}
                   className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
-                  <ChevronDownIcon /> {t('trade.moveDownTooltip')}
+                  <ChevronDown size={14} /> {t('trade.moveDownTooltip')}
                 </button>
               )}
               <button
                 onClick={() => { onEditTrade(); setMenuOpen(false); }}
                 className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
               >
-                <PencilIcon /> {t('trade.editTooltip')}
+                <Pencil size={14} /> {t('trade.editTooltip')}
               </button>
             </div>
           )}
@@ -237,9 +196,10 @@ export default function TradeCard({
                         offer.link.startsWith('https://1drv.ms') ? (
                           <button
                             onClick={(e) => { e.stopPropagation(); setPreviewUrl(offer.link); }}
-                            className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                            className="flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 hover:underline"
                           >
-                            {t('table.openLink')}
+                            <ScanEye size={13} />
+                            {t('table.openEmbedded')}
                           </button>
                         ) : (
                           <a
@@ -247,8 +207,9 @@ export default function TradeCard({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                            className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 hover:underline"
                           >
+                            <ExternalLink size={13} />
                             {t('table.openLink')}
                           </a>
                         )
@@ -271,7 +232,7 @@ export default function TradeCard({
                         title={t('table.editTooltip')}
                         className="rounded-sm p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
                       >
-                        <PencilIcon />
+                        <Pencil size={14} />
                       </button>
                     </td>
                   </tr>
@@ -308,10 +269,7 @@ export default function TradeCard({
               className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
               aria-label="Close"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <X size={18} />
             </button>
           </div>
           <iframe

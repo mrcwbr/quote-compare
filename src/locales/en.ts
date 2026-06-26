@@ -12,7 +12,7 @@ const en = {
   emptyState: {
     title: 'No trades added yet',
     description:
-      'Click on “Trade” to add e. g. Plumbing, Electrical or Painting.',
+      'Click on "Trade" to add e. g. Plumbing, Electrical or Painting.',
   },
   trade: {
     offerCount_one: '{{count}} quote',
@@ -31,14 +31,15 @@ const en = {
     date: 'Date',
     link: 'Link',
     note: 'Note',
-    openLink: 'Open ↗',
+    openLink: 'Open',
+    openEmbedded: 'Preview',
     editTooltip: 'Edit quote',
   },
   tradeForm: {
     titleEdit: 'Edit trade',
     titleNew: 'New trade',
     nameLabel: 'Name',
-    namePlaceholder: 'e. g. Plumbing, Electrical, Painting',
+    namePlaceholder: 'e. g. Plumbing, Electrical, Painting',
     deleteTrade: 'Delete trade',
   },
   offerForm: {
@@ -46,7 +47,7 @@ const en = {
     titleNew: 'New quote',
     companyLabel: 'Company',
     companyPlaceholder: 'Company name',
-    priceLabel: 'Price (€)',
+    priceLabel: 'Price (€)',
     dateLabel: 'Date',
     linkLabel: 'Link to quote',
     linkHint: 'OneDrive links (1drv.ms) are shown as an embedded preview.',
@@ -59,11 +60,11 @@ const en = {
     save: 'Save',
   },
   summary: {
-    selectedOffers: 'Selected quotes ({{selected}}/{{total}})',
+    selectedOffers: 'Selected quotes ({{selected}}/{{total}})',
     noOfferChosen: 'no quote selected',
     grandTotal: 'Grand total',
-    missingSelection_one: '{{count}} trade without selection',
-    missingSelection_other: '{{count}} trades without selection',
+    missingSelection_one: '{{count}} trade without selection',
+    missingSelection_other: '{{count}} trades without selection',
   },
 } as const;
 
